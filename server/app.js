@@ -5,7 +5,9 @@ const postRoutes = require('./routes/posts');
 // express app
 const app = express();
 
-// middleware
+// middleware, express.json attaches the data to request
+app.use(express.json());
+
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
