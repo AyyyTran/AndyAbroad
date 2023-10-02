@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
-const postRoutes = require('./routes/posts');
+const blogRoutes = require('./routes/blogs');
 
 // express app
 const app = express();
@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 });
 
 // routes
-app.use('/api/posts', postRoutes);
+app.use('/api/blogs', blogRoutes);
 
 // Connect to mongodb and listening for port
 mongoose
