@@ -1,4 +1,5 @@
 const express = require('express');
+const {createBlog} = require('../controllers/blogController');
 
 const router = express.Router();
 
@@ -13,9 +14,7 @@ router.get('/:id', (req, res) => {
 });
 
 // POST a new blog
-router.post('/', (req, res) => {
-  res.json({msg: 'CREATE a blog'});
-});
+router.post('/', createBlog);
 
 // DELETE a blog
 router.delete('/:id', (req, res) => {
