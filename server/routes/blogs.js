@@ -20,6 +20,7 @@ router.post('/', createBlog);
 
 // DELETE a blog
 router.delete('/:id', deleteBlog);
+
 // UPDATE a blog
 router.patch('/:id', updateBlog);
 

@@ -1,5 +1,6 @@
 const Blog = require('../models/BlogModel.js');
 const mongoose = require('mongoose');
+
 //GET all blogs
 const getAllBlogs = async (req, res) => {
   const blogs = await Blog.find({}).sort({createdAt: -1});

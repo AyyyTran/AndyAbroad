@@ -25,5 +25,3 @@ const blogSchema = new Schema(
 );
 
 module.exports = mongoose.model('Blog', blogSchema);
-
-// Blog.find() will find all
