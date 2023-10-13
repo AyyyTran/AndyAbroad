@@ -36,3 +36,7 @@ header a {
   padding: 10px;
   margin: 0 auto;
 }
+
+.blogImg {
+  width: 500px;
+}

@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-
+import BlogDetails from '../components/BlogDetails';
 const Home = () => {
   const [blogs, setBlogs] = useState(null);
 
@@ -17,9 +17,14 @@ const Home = () => {
   }, []);
 
   return (
+    // Home should contain a list or gird of all the available blogs.
+    // Clicking on a blog should open up that exact blog into a standalon page where it displays dynamic
+    // content based on the content of that blog
+    // Home should just have navbar and list of articles and footer
     <div className="home">
       <div className="blogs">
-        {blogs && blogs.map((blog) => <p key={blog._id}>{blog.title}</p>)}
+        {blogs &&
+          blogs.map((blog) => <BlogDetails key={blog._id} blog={blog} />)}
       </div>
     </div>
   );
