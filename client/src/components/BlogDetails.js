@@ -1,20 +1,17 @@
 const BlogDetails = ({blog}) => (
   <div className="blog-details">
+    <img className="blogImg" src={`../images/${blog.coverImage}`} alt="blog" />
     <h4>{blog.title}</h4>
+    {/* <p>{blog.updatedAt}</p>
     <p>
-      <strong>Authour</strong>
+      <strong>Author: </strong>
       {blog.author}
-    </p>
-    <p>
-      <strong>Content</strong>
-      {blog.content}
-    </p>
-    <p>{blog.createdAt}</p>
-    <p>{blog.coverImage}</p>
+    </p> */}
+    <p>{blog.content}</p>
+    {/* Might change to Images ontop of Title ontop of description. */}
     {/* both of the below work */}
     {/* <img src={blogimg} alt="blog" /> */}
     {/* <img className="blogImg" src={`/images/onsen.jpg`} alt="blog" /> */}
-    <img className="blogImg" src={`../images/${blog.coverImage}`} alt="blog" />
   </div>
 );
 
