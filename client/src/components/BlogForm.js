@@ -16,7 +16,7 @@ const BlogForm = () => {
     const response = await fetch('/api/blogs', {
       method: 'POST',
       body: JSON.stringify(blog),
-      headers: {'Content-Type': ' application/json'},
+      headers: {'Content-Type': 'application/json'},
     });
 
     const json = await response.json();
@@ -42,25 +42,30 @@ const BlogForm = () => {
   return (
     <form className="create" onSubmit={handleSubmit}>
       <h3>Add a new Blog</h3>
-      <label htmlFor="">Blog Title</label>
+      <label htmlFor="title">Blog Title</label>
       <input
         type="text"
+        id="title"
+        placeholder="Enter blog title"
         onChange={(e) => {
           setTitle(e.target.value);
         }}
         value={title}
       />
-      <label htmlFor="">Author</label>
+      <label htmlFor="author">Author</label>
       <input
         type="text"
+        id="author"
+        placeholder="Enter author name"
         onChange={(e) => {
           setAuthor(e.target.value);
         }}
         value={author}
       />
-      <label htmlFor="">Content</label>
+      <label htmlFor="content">Content</label>
       <textarea
-        type="text"
+        id="content"
+        placeholder="Enter blog content"
         onChange={(e) => {
           setContent(e.target.value);
         }}
@@ -79,9 +84,3 @@ const BlogForm = () => {
 };
 
 export default BlogForm;
-// need work with backedn for file upload with MULTER
-// now have to make it so that the images get saved to the public/images folder then the name can dispaly etc
-// also make it so that the cover image upload thingy gets reset after being submitted
-// also maybe remove selct image entirely and just have the upload button set the state to be that image.
-// or create noti for select image
-// also eventually do useEffect so that the page auto updates
