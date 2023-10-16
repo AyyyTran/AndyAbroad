@@ -37,11 +37,7 @@ const UploadAndDisplayImage = ({onFileSelect, resetImage}) => {
         </div>
       )}
 
-      <br />
-      <br />
-
       <label htmlFor="coverImage">Choose a cover image: </label>
-      <br />
       <input
         type="file"
         id="coverImage"
