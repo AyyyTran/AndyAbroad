@@ -11,6 +11,17 @@ const BlogForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const formData = new FormData();
+    formData.append('coverImage', coverImage);
+
+    const imageResponse = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData,
+    });
+
+    imageResponse.json();
+
+    // Proceed with adding the blog data
     const blog = {title, author, content, coverImage};
 
     const response = await fetch('/api/blogs', {

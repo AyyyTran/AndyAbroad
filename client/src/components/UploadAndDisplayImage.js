@@ -25,7 +25,7 @@ const UploadAndDisplayImage = ({onFileSelect, resetImage}) => {
 
   return (
     <div>
-      {selectedImage && (
+      {/* {selectedImage && (
         <div>
           <img
             alt="CoverImage"
@@ -35,14 +35,13 @@ const UploadAndDisplayImage = ({onFileSelect, resetImage}) => {
           <br />
           <button onClick={() => setSelectedImage(null)}>Delete</button>
         </div>
-      )}
+      )} */}
 
       <label htmlFor="coverImage">Choose a cover image: </label>
       <input
         type="file"
-        id="coverImage"
         name="coverImage"
-        accept="image/png, image/jpeg, image/jpg"
+        accept="image/*"
         onChange={handleImageSelect}
       />
     </div>
