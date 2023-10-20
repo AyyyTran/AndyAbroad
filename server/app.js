@@ -9,11 +9,11 @@ const multer = require('multer');
 const path = require('path');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '/images/');
+    cb(null, 'public/images/');
   },
   filename: function (req, file, cb) {
     console.log(file);
-    cb(null, path.extname(file.originalname));
+    cb(null, file.originalname);
   },
 });
 const upload = multer({storage: storage});
@@ -35,16 +35,9 @@ app.use((req, res, next) => {
 // routes
 app.use('/api/blogs', blogRoutes);
 
-// Define a route for handling file uploads
+// // Define a route for handling file uploads
 app.post('/api/upload', upload.single('coverImage'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({error: 'No file uploaded.'});
-  }
-  const responseData = {
-    message: 'File uploaded successfully',
-    filename: req.file.originalname,
-  };
-  res.status(200).json(responseData);
+  res.send('GOOD JOB');
 });
 
 // Connect to mongodb and listening for port

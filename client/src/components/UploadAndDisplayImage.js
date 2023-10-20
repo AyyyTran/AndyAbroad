@@ -1,31 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
-const UploadAndDisplayImage = ({onFileSelect, resetImage}) => {
+const UploadAndDisplayImage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
-
-  const handleImageSelect = (event) => {
-    const file = event.target.files[0];
-    setSelectedImage(file);
-    onFileSelect(file ? file.name : null);
-  };
-
-  useEffect(() => {
-    if (resetImage) {
-      setSelectedImage(null);
-    }
-  }, [resetImage]);
-
-  useEffect(() => {
-    if (selectedImage) {
-      console.log('Selected Image:', selectedImage);
-      const imageUrl = URL.createObjectURL(selectedImage);
-      console.log('Image URL:', imageUrl);
-    }
-  }, [selectedImage]);
 
   return (
     <div>
-      {/* {selectedImage && (
+      {selectedImage && (
         <div>
           <img
             alt="CoverImage"
@@ -35,15 +15,12 @@ const UploadAndDisplayImage = ({onFileSelect, resetImage}) => {
           <br />
           <button onClick={() => setSelectedImage(null)}>Delete</button>
         </div>
-      )} */}
-
-      <label htmlFor="coverImage">Choose a cover image: </label>
-      <input
-        type="file"
-        name="coverImage"
-        accept="image/*"
-        onChange={handleImageSelect}
-      />
+      )}
+      <form action="/api/upload" method="POST" enctype="multipart/form-data">
+        <label htmlFor="coverImage">Choose a cover image: </label>
+        <input type="file" name="coverImage" accept="image/*" />
+        <button type="submit">Send</button>
+      </form>
     </div>
   );
 };

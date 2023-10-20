@@ -11,16 +11,6 @@ const BlogForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append('coverImage', coverImage);
-
-    const imageResponse = await fetch('/api/upload', {
-      method: 'POST',
-      body: formData,
-    });
-
-    imageResponse.json();
-
     // Proceed with adding the blog data
     const blog = {title, author, content, coverImage};
 
@@ -46,51 +36,45 @@ const BlogForm = () => {
     }
   };
 
-  const handleFileSelect = (file) => {
-    setCoverImage(file);
-  };
-
   return (
-    <form className="create" onSubmit={handleSubmit}>
-      <h3>Add a new Blog</h3>
-      <label htmlFor="title">Blog Title</label>
-      <input
-        type="text"
-        id="title"
-        placeholder="Enter blog title"
-        onChange={(e) => {
-          setTitle(e.target.value);
-        }}
-        value={title}
-      />
-      <label htmlFor="author">Author</label>
-      <input
-        type="text"
-        id="author"
-        placeholder="Enter author name"
-        onChange={(e) => {
-          setAuthor(e.target.value);
-        }}
-        value={author}
-      />
-      <label htmlFor="content">Content</label>
-      <textarea
-        id="content"
-        placeholder="Enter blog content"
-        onChange={(e) => {
-          setContent(e.target.value);
-        }}
-        value={content}
-      />
+    <>
+      <form className="create" onSubmit={handleSubmit}>
+        <h3>Add a new Blog</h3>
+        <label htmlFor="title">Blog Title</label>
+        <input
+          type="text"
+          id="title"
+          placeholder="Enter blog title"
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+          value={title}
+        />
+        <label htmlFor="author">Author</label>
+        <input
+          type="text"
+          id="author"
+          placeholder="Enter author name"
+          onChange={(e) => {
+            setAuthor(e.target.value);
+          }}
+          value={author}
+        />
+        <label htmlFor="content">Content</label>
+        <textarea
+          id="content"
+          placeholder="Enter blog content"
+          onChange={(e) => {
+            setContent(e.target.value);
+          }}
+          value={content}
+        />
 
-      <UploadAndDisplayImage
-        resetImage={coverImage}
-        onFileSelect={handleFileSelect}
-      />
-
-      <button>Add Blog</button>
-      {error && <div className="error">{error}</div>}
-    </form>
+        <button>Add Blog</button>
+        {error && <div className="error">{error}</div>}
+      </form>
+      <UploadAndDisplayImage />
+    </>
   );
 };
 
