@@ -1,22 +1,37 @@
 import React, {useState} from 'react';
-import UploadAndDisplayImage from './UploadAndDisplayImage';
 
 const BlogForm = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [content, setContent] = useState('');
-  const [coverImage, setCoverImage] = useState(''); // Initialize to an empty string
+  const [coverImage, setCoverImage] = useState(null);
   const [error, setError] = useState(null);
+
+  const handleImageSelect = (e) => {
+    const file = e.target.files[0];
+    setCoverImage(file);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Proceed with adding the blog data
-    const blog = {title, author, content, coverImage};
+    // Create a FormData object to send the file
+    const formData = new FormData();
+    formData.append('coverImage', coverImage);
 
+    // Proceed with adding the blog data
+    const blog = {title, author, content};
+
+    // Send the coverImage file to /api/upload route for storage
+    await fetch('/api/upload', {
+      method: 'POST',
+      body: formData,
+    });
+
+    // Send the blog data to /api/blogs route to create a new blog entry
     const response = await fetch('/api/blogs', {
       method: 'POST',
-      body: JSON.stringify(blog),
+      body: JSON.stringify({...blog, coverImage: coverImage.name}),
       headers: {'Content-Type': 'application/json'},
     });
 
@@ -30,14 +45,10 @@ const BlogForm = () => {
       setTitle('');
       setAuthor('');
       setContent('');
-      setCoverImage('');
+      setCoverImage(null);
       setError(null);
       console.log('New Blog added', json);
     }
-  };
-
-  const handleImageUploadConfirmation = (imageFileName) => {
-    setCoverImage(imageFileName);
   };
 
   return (
@@ -74,7 +85,14 @@ const BlogForm = () => {
           value={content}
         />
 
-        <UploadAndDisplayImage onFileSelect={handleImageUploadConfirmation} />
+        <label htmlFor="coverImage">Choose a cover image: </label>
+        <input
+          type="file"
+          name="coverImage"
+          accept="image/*"
+          onChange={handleImageSelect}
+        />
+
         <button>Add Blog</button>
         {error && <div className="error">{error}</div>}
       </form>
