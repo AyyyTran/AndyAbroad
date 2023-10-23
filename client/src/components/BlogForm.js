@@ -36,6 +36,11 @@ const BlogForm = () => {
     }
   };
 
+  // const handleFileSelect = (file) => {
+  //   setCoverImage(file);
+  //   console.log(file);
+  // };
+
   return (
     <>
       <form className="create" onSubmit={handleSubmit}>
@@ -70,10 +75,10 @@ const BlogForm = () => {
           value={content}
         />
 
+        <UploadAndDisplayImage />
         <button>Add Blog</button>
         {error && <div className="error">{error}</div>}
       </form>
-      <UploadAndDisplayImage />
     </>
   );
 };

@@ -37,7 +37,11 @@ app.use('/api/blogs', blogRoutes);
 
 // // Define a route for handling file uploads
 app.post('/api/upload', upload.single('coverImage'), (req, res) => {
-  res.send('GOOD JOB');
+  // Check if a file was uploaded successfully
+  if (!req.file) {
+    return res.status(400).json({error: 'No file uploaded.'});
+  }
+  res.json({message: 'File uploaded successfully.'});
 });
 
 // Connect to mongodb and listening for port
