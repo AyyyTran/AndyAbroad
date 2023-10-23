@@ -41,7 +41,12 @@ app.post('/api/upload', upload.single('coverImage'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({error: 'No file uploaded.'});
   }
-  res.json({message: 'File uploaded successfully.'});
+
+  // Assuming 'public/images/' is the directory where you save uploaded images
+  const imagePath = req.file.path;
+
+  // Return the image path in the response
+  res.status(200).json({imagePath});
 });
 
 // Connect to mongodb and listening for port

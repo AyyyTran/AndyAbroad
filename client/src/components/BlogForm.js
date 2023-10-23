@@ -5,7 +5,7 @@ const BlogForm = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [content, setContent] = useState('');
-  const [coverImage, setCoverImage] = useState('');
+  const [coverImage, setCoverImage] = useState(''); // Initialize to an empty string
   const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
@@ -30,16 +30,15 @@ const BlogForm = () => {
       setTitle('');
       setAuthor('');
       setContent('');
-      setCoverImage(null);
+      setCoverImage('');
       setError(null);
       console.log('New Blog added', json);
     }
   };
 
-  // const handleFileSelect = (file) => {
-  //   setCoverImage(file);
-  //   console.log(file);
-  // };
+  const handleImageUploadConfirmation = (imageFileName) => {
+    setCoverImage(imageFileName);
+  };
 
   return (
     <>
@@ -75,7 +74,7 @@ const BlogForm = () => {
           value={content}
         />
 
-        <UploadAndDisplayImage />
+        <UploadAndDisplayImage onFileSelect={handleImageUploadConfirmation} />
         <button>Add Blog</button>
         {error && <div className="error">{error}</div>}
       </form>
