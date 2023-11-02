@@ -21,9 +21,8 @@ export const BlogsContextProvider = ({children}) => {
   // this is a hook with reducer and empty onject
   const [state, dispatch] = useReducer(blogsReducer, {blogs: null});
 
-  dispatch({});
   return (
-    <BlogsContext.Provider value={{state, dispatch}}>
+    <BlogsContext.Provider value={{...state, dispatch}}>
       {children}
     </BlogsContext.Provider>
   );
