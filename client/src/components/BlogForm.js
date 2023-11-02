@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
+import {useBlogsContext} from '../hooks/useBlogsContext';
 
 const BlogForm = () => {
+  const {dispatch} = useBlogsContext();
+
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [content, setContent] = useState('');
@@ -47,6 +50,8 @@ const BlogForm = () => {
       setContent('');
       setCoverImage(null);
       setError(null);
+      // add to global context state
+      dispatch({type: 'CREATE_BLOG', payload: json});
       console.log('New Blog added', json);
     }
   };
