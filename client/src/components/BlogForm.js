@@ -9,6 +9,7 @@ const BlogForm = () => {
   const [content, setContent] = useState('');
   const [coverImage, setCoverImage] = useState(null);
   const [error, setError] = useState(null);
+  const [emptyFields, setEmptyFields] = useState([]);
 
   const handleImageSelect = (e) => {
     const file = e.target.files[0];
@@ -34,13 +35,16 @@ const BlogForm = () => {
     // Send the blog data to /api/blogs route to create a new blog entry
     const response = await fetch('/api/blogs', {
       method: 'POST',
-      body: JSON.stringify({...blog, coverImage: coverImage.name}),
+      body: JSON.stringify({...blog, coverImage: coverImage?.name}),
       headers: {'Content-Type': 'application/json'},
     });
 
     const json = await response.json();
 
     if (!response.ok) {
+      console.log(json.emptyFields);
+      console.log(json.error);
+      setEmptyFields(json.emptyFields);
       setError(json.error);
     }
 
@@ -50,6 +54,7 @@ const BlogForm = () => {
       setContent('');
       setCoverImage(null);
       setError(null);
+      setEmptyFields([]);
       // add to global context state
       dispatch({type: 'CREATE_BLOG', payload: json});
       console.log('New Blog added', json);
@@ -69,6 +74,7 @@ const BlogForm = () => {
             setTitle(e.target.value);
           }}
           value={title}
+          className={emptyFields.includes('title') ? 'error' : ''}
         />
         <label htmlFor="author">Author</label>
         <input
@@ -79,6 +85,7 @@ const BlogForm = () => {
             setAuthor(e.target.value);
           }}
           value={author}
+          className={emptyFields.includes('author') ? 'error' : ''}
         />
         <label htmlFor="content">Content</label>
         <textarea
@@ -88,6 +95,7 @@ const BlogForm = () => {
             setContent(e.target.value);
           }}
           value={content}
+          className={emptyFields.includes('content') ? 'error' : ''}
         />
 
         <label htmlFor="coverImage">Choose a cover image: </label>
@@ -96,6 +104,7 @@ const BlogForm = () => {
           name="coverImage"
           accept="image/*"
           onChange={handleImageSelect}
+          className={emptyFields.includes('coverImage') ? 'error' : ''}
         />
 
         <button>Add Blog</button>
