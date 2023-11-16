@@ -1,5 +1,8 @@
 import {useBlogsContext} from '../hooks/useBlogsContext';
 
+// date-fns
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+
 const BlogDetails = ({blog}) => {
   const {dispatch} = useBlogsContext();
 
@@ -19,7 +22,10 @@ const BlogDetails = ({blog}) => {
       <img className="blogImg" src={`/images/${blog.coverImage}`} alt="blog" />
       <h4>{blog.title}</h4>
       <p>{blog.content}</p>
-      <span onClick={handleClick}>Delete</span>
+      <p>{formatDistanceToNow(new Date(blog.createdAt), {addSuffix: true})}</p>
+      <span className="material-symbols-outlined" onClick={handleClick}>
+        Delete
+      </span>
     </div>
   );
 };
